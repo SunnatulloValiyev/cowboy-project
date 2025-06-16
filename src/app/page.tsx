@@ -26,23 +26,23 @@ export default function Home() {
     setProducts(data.products);
   };
 
-  const handleDelete = async (id: string) => {
-    const confirm = window.confirm("Mahsulotni o‘chirishga ishonchingiz komilmi?");
-    if (!confirm) return;
+  // const handleDelete = async (id: string) => {
+  //   const confirm = window.confirm("Mahsulotni o‘chirishga ishonchingiz komilmi?");
+  //   if (!confirm) return;
 
-    const res = await fetch(`/api/products/${id}`, {
-      method: "DELETE",
-    });
+  //   const res = await fetch(`/api/products/${id}`, {
+  //     method: "DELETE",
+  //   });
 
-    const data = await res.json();
+  //   const data = await res.json();
 
-    if (data.success) {
-      // Mahsulotni UI dan olib tashlash
-      setProducts(products.filter((p) => p._id !== id));
-    } else {
-      alert("Xatolik: " + data.message);
-    }
-  };
+  //   if (data.success) {
+  //     // Mahsulotni UI dan olib tashlash
+  //     setProducts(products.filter((p) => p._id !== id));
+  //   } else {
+  //     alert("Xatolik: " + data.message);
+  //   }
+  // };
 
   return (
     <>
@@ -58,7 +58,7 @@ export default function Home() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8">
           {products.map((product) => (
-            <ProductCard key={product._id} product={product} onDelete={handleDelete} />
+            <ProductCard key={product._id} product={product}  />
           ))}
         </div>
       </div>
