@@ -1,6 +1,6 @@
 // components/productCard.tsx
 
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 // import { Trash } from "lucide-react";
 
