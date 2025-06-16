@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Trash } from "lucide-react";
+// import { Trash } from "lucide-react";
 
 interface Product {
   _id: string;
@@ -14,10 +14,10 @@ interface Product {
 
 export default function ProductCard({
   product,
-  onDelete,
+  // onDelete,
 }: {
   product: Product;
-  onDelete: (id: string) => void;
+  // onDelete: (id: string) => void;
 }) {
   return (
     <Card className="shadow-md rounded-xl p-4 bg-white">
@@ -33,13 +33,13 @@ export default function ProductCard({
           <p className="text-green-600 font-semibold mt-2">
             {product.price} so&apos;m
           </p>
-          <Button
+          {/* <Button
             title="Delete"
             variant="destructive"
             onClick={() => onDelete(product._id)}
           >
             <Trash />
-          </Button>
+          </Button> */}
         </div>
       </div>
     </Card>
