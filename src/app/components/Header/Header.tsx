@@ -1,6 +1,7 @@
 "use client";
-import { useState } from "react";
-import { usePathname } from "next/navigation";
+
+import { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { LogInIcon, ShoppingCart, Menu } from "lucide-react";
 import Link from "next/link";
@@ -8,6 +9,7 @@ import Link from "next/link";
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   const navLinks = [
     { href: "/", label: "Bosh sahifa" },
@@ -15,19 +17,32 @@ function Header() {
     { href: "/contact", label: "Aloqa" },
   ];
 
+  // login holatini tekshirish uchun cookie-ni o‘qiymiz
+  const checkLogin = () => {
+    const isLoggedIn = document.cookie.includes("logged_in=true");
+    if (isLoggedIn) {
+      router.push("/admin");
+    } else {
+      router.push("/login");
+    }
+  };
+
   return (
     <header className="p-3 shadow-md">
-      {/* Top bar */}
       <div className="flex items-center justify-between mb-3">
         <h1 className="text-xl font-bold">Cowboy.uz</h1>
 
-        {/* Desktop: Admin */}
+        {/* Desktop Admin Button */}
         <div className="hidden md:flex gap-2">
-          <Link href="/login">
-            <Button variant="outline" size="sm" className="px-2">
-              <LogInIcon className="w-4 h-4 mr-1" /> Admin
-            </Button>
-          </Link>
+          <Button
+            variant="outline"
+            size="sm"
+            className="px-2"
+            onClick={checkLogin}
+            
+          >
+            <LogInIcon className="w-4 h-4 mr-1" /> Admin
+          </Button>
         </div>
 
         {/* Burger icon */}
@@ -40,7 +55,7 @@ function Header() {
       </div>
 
       {/* Nav Links */}
-      <nav className="flex flex-wrap gap-4 mb-5 w-full text-sm">
+      <nav className="flex flex-wrap gap-5 mb-5 w-full text-sm">
         {navLinks.map((link) => (
           <Link
             key={link.href}
@@ -56,7 +71,7 @@ function Header() {
         ))}
       </nav>
 
-      {/* Cart button — alohida pastda */}
+      {/* Cart button */}
       <div className="mb-4">
         <Button
           variant="outline"
@@ -68,19 +83,21 @@ function Header() {
         </Button>
       </div>
 
-      {/* Mobile: Burger ochilganda faqat Admin */}
+      {/* Mobile Admin Button */}
       {isMenuOpen && (
         <div className="md:hidden flex flex-col gap-2">
-          <Link href="/login" onClick={() => setIsMenuOpen(false)}>
-            <Button
-              variant="outline"
-              size="sm"
-              className="w-full mx-auto flex justify-start items-center gap-1"
-            >
-              <LogInIcon className="w-4 h-4" />
-              Admin
-            </Button>
-          </Link>
+          <Button
+            variant="outline"
+            size="sm"
+            className="w-full mx-auto flex justify-start items-center gap-1"
+            onClick={() => {
+              setIsMenuOpen(false);
+              checkLogin();
+            }}
+          >
+            <LogInIcon className="w-4 h-4" />
+            Admin
+          </Button>
         </div>
       )}
     </header>
