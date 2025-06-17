@@ -1,7 +1,11 @@
-import type { NextConfig } from "next";
+// next.config.js
+require("dotenv").config();
 
-const nextConfig: NextConfig = {
-  /* config options here */
+const nextConfig = {
+  reactStrictMode: true,
+  env: {
+    MONGODB_URI: process.env.MONGODB_URI,
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
