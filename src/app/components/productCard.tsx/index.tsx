@@ -20,7 +20,7 @@ export default function ProductCard({
   // onDelete: (id: string) => void;
 }) {
   return (
-    <Card className="shadow-md rounded-xl p-4 bg-white">
+    <Card className="shadow-md rounded-xl p-4">
       <img
         src={product.image}
         alt={product.name}
