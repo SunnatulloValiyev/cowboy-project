@@ -1,19 +1,19 @@
-import mongoose from "mongoose";
+import mongoose, {ConnectOptions} from "mongoose"
 
-const MONGODB_URI = process.env.MONGODB_URI;
-
-if (!MONGODB_URI) {
-  throw new Error("Please define the MONGODB_URI in .env.local");
+const connectMongoDB = async () => {
+  try {
+    await mongoose.connect(
+      process.env.MONGODB_URI as string,
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      } as ConnectOptions
+    )
+    console.log("MongoDB connected")
+  } catch (err) {
+    console.error((err as Error).message)
+    process.exit(1)
+  }
 }
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(MONGODB_URI);
-    console.log("MongoDB connected");
-  } catch (error) {
-    console.error("MongoDB connection error", error);
-    throw error;
-  }
-};
-
-export default connectDB;
+export default connectMongoDB
